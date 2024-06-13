@@ -22,12 +22,10 @@ html.dark {
   --bg-color: theme('colors.black');
 }
 
-
 ::selection {
   background-color: theme('colors.blue.700');
   color: theme('colors.blue.300');
 }
-
 
 @layer base {
   :root {

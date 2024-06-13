@@ -1,3 +1,3 @@
-import { Store } from "@tauri-apps/plugin-store";
-export const store = new Store("store.bin");
-export default store;
+import { Store } from '@tauri-apps/plugin-store'
+export const store = new Store('store.bin')
+export default store

@@ -9,18 +9,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="assetName"    column="asset_name"    />
         <result property="assetType"    column="asset_type"    />
         <result property="parentId"    column="parent_id"    />
+        <result property="vip"    column="vip"    />
+        <result property="url"    column="url"    />
         <result property="visible"    column="visible"    />
         <result property="sort"    column="sort"    />
-        <result property="vip"    column="vip"    />
+        <result property="remark"    column="remark"    />
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
         <result property="updateBy"    column="update_by"    />
         <result property="updateTime"    column="update_time"    />
-        <result property="remark"    column="remark"    />
     </resultMap>
 
     <sql id="selectTbAssetVo">
-        select asset_id, asset_name, asset_type, parent_id, visible, sort, vip, create_by, create_time, update_by, update_time, remark from tb_asset
+        select asset_id, asset_name, asset_type, parent_id, vip, url, visible, sort, remark, create_by, create_time, update_by, update_time from tb_asset
     </sql>
 
     <select id="selectTbAssetList" parameterType="TbAsset" resultMap="TbAssetResult">
@@ -29,9 +30,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="assetName != null  and assetName != ''"> and asset_name like concat('%', #{assetName}, '%')</if>
             <if test="assetType != null  and assetType != ''"> and asset_type = #{assetType}</if>
             <if test="parentId != null "> and parent_id = #{parentId}</if>
+            <if test="vip != null "> and vip = #{vip}</if>
             <if test="visible != null "> and visible = #{visible}</if>
             <if test="sort != null "> and sort = #{sort}</if>
-            <if test="vip != null "> and vip = #{vip}</if>
         </where>
     </select>
     
@@ -44,29 +45,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into tb_asset
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="assetName != null and assetName != ''">asset_name,</if>
-            <if test="assetType != null">asset_type,</if>
+            <if test="assetType != null and assetType != ''">asset_type,</if>
             <if test="parentId != null">parent_id,</if>
+            <if test="vip != null">vip,</if>
+            <if test="url != null">url,</if>
             <if test="visible != null">visible,</if>
             <if test="sort != null">sort,</if>
-            <if test="vip != null">vip,</if>
+            <if test="remark != null">remark,</if>
             <if test="createBy != null">create_by,</if>
             <if test="createTime != null">create_time,</if>
             <if test="updateBy != null">update_by,</if>
             <if test="updateTime != null">update_time,</if>
-            <if test="remark != null">remark,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="assetName != null and assetName != ''">#{assetName},</if>
-            <if test="assetType != null">#{assetType},</if>
+            <if test="assetType != null and assetType != ''">#{assetType},</if>
             <if test="parentId != null">#{parentId},</if>
+            <if test="vip != null">#{vip},</if>
+            <if test="url != null">#{url},</if>
             <if test="visible != null">#{visible},</if>
             <if test="sort != null">#{sort},</if>
-            <if test="vip != null">#{vip},</if>
+            <if test="remark != null">#{remark},</if>
             <if test="createBy != null">#{createBy},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="updateBy != null">#{updateBy},</if>
             <if test="updateTime != null">#{updateTime},</if>
-            <if test="remark != null">#{remark},</if>
          </trim>
     </insert>
 
@@ -74,16 +77,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update tb_asset
         <trim prefix="SET" suffixOverrides=",">
             <if test="assetName != null and assetName != ''">asset_name = #{assetName},</if>
-            <if test="assetType != null">asset_type = #{assetType},</if>
+            <if test="assetType != null and assetType != ''">asset_type = #{assetType},</if>
             <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="vip != null">vip = #{vip},</if>
+            <if test="url != null">url = #{url},</if>
             <if test="visible != null">visible = #{visible},</if>
             <if test="sort != null">sort = #{sort},</if>
-            <if test="vip != null">vip = #{vip},</if>
+            <if test="remark != null">remark = #{remark},</if>
             <if test="createBy != null">create_by = #{createBy},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
-            <if test="remark != null">remark = #{remark},</if>
         </trim>
         where asset_id = #{assetId}
     </update>

@@ -3,15 +3,15 @@ package com.ruoyi.project.asset.domain;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.framework.aspectj.lang.annotation.Excel;
-import com.ruoyi.framework.web.domain.BaseEntity;
+import com.ruoyi.framework.web.domain.TreeEntity;
 
 /**
  * 资产数据对象 tb_asset
  * 
  * @author ruoyi
- * @date 2024-06-12
+ * @date 2024-06-13
  */
-public class TbAsset extends BaseEntity
+public class TbAsset extends TreeEntity
 {
     private static final long serialVersionUID = 1L;
 
@@ -26,9 +26,12 @@ public class TbAsset extends BaseEntity
     @Excel(name = "资产类型", readConverterExp = "D=IR,P=DF,P=CB,G=BR,B=RD")
     private String assetType;
 
-    /** 父资产 */
-    @Excel(name = "父资产")
-    private Long parentId;
+    /** 是否需要vip查看（0否 1是） */
+    @Excel(name = "是否需要vip查看", readConverterExp = "0=否,1=是")
+    private Long vip;
+
+    /** 资产文件 */
+    private String url;
 
     /** 资产状态（0显示 1隐藏） */
     @Excel(name = "资产状态", readConverterExp = "0=显示,1=隐藏")
@@ -37,10 +40,6 @@ public class TbAsset extends BaseEntity
     /** 显示顺序 */
     @Excel(name = "显示顺序")
     private Long sort;
-
-    /** 是否需要vip查看（0否 1是） */
-    @Excel(name = "是否需要vip查看", readConverterExp = "0=否,1=是")
-    private Long vip;
 
     public void setAssetId(Long assetId) 
     {
@@ -69,14 +68,23 @@ public class TbAsset extends BaseEntity
     {
         return assetType;
     }
-    public void setParentId(Long parentId) 
+    public void setVip(Long vip) 
     {
-        this.parentId = parentId;
+        this.vip = vip;
     }
 
-    public Long getParentId() 
+    public Long getVip() 
     {
-        return parentId;
+        return vip;
+    }
+    public void setUrl(String url) 
+    {
+        this.url = url;
+    }
+
+    public String getUrl() 
+    {
+        return url;
     }
     public void setVisible(Long visible) 
     {
@@ -96,15 +104,6 @@ public class TbAsset extends BaseEntity
     {
         return sort;
     }
-    public void setVip(Long vip) 
-    {
-        this.vip = vip;
-    }
-
-    public Long getVip() 
-    {
-        return vip;
-    }
 
     @Override
     public String toString() {
@@ -113,14 +112,15 @@ public class TbAsset extends BaseEntity
             .append("assetName", getAssetName())
             .append("assetType", getAssetType())
             .append("parentId", getParentId())
+            .append("vip", getVip())
+            .append("url", getUrl())
             .append("visible", getVisible())
             .append("sort", getSort())
-            .append("vip", getVip())
+            .append("remark", getRemark())
             .append("createBy", getCreateBy())
             .append("createTime", getCreateTime())
             .append("updateBy", getUpdateBy())
             .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
             .toString();
     }
 }

@@ -698,3 +698,24 @@ create table gen_table_column (
   update_time       datetime                                   comment '更新时间',
   primary key (column_id)
 ) engine=innodb auto_increment=1 comment = '代码生成业务表字段';
+
+
+-- ----------------------------
+-- 20、资产数据表
+-- ----------------------------
+drop table if exists tb_asset;
+create table tb_asset (
+  asset_id           bigint(20)      not null auto_increment    comment '资产ID',
+  asset_name         varchar(200)    not null                   comment '资产名称',
+  asset_type         char(6)         default ''                 comment '资产类型（DIR PDF PCB GBR BRD）',
+  parent_id          bigint(20)      default 0                  comment '父资产',
+  visible            int(1)          default 0                  comment '资产状态（0显示 1隐藏）',
+  sort               int(4)          default 0                  comment '显示顺序',
+  vip                int(1)          default 0                  comment 'vip类型（0普通会员 1超级会员）',
+  create_by          varchar(64)     default ''                 comment '创建者',
+  create_time        datetime                                   comment '创建时间',
+  update_by          varchar(64)     default ''                 comment '更新者',
+  update_time        datetime                                   comment '更新时间',
+  remark             varchar(500)    default ''                 comment '备注',
+  primary key (asset_id)
+) engine=innodb comment = '资产数据表';

@@ -7,7 +7,7 @@ import com.ruoyi.project.asset.domain.TbAsset;
  * 资产数据Mapper接口
  * 
  * @author ruoyi
- * @date 2024-06-12
+ * @date 2024-06-13
  */
 public interface TbAssetMapper 
 {

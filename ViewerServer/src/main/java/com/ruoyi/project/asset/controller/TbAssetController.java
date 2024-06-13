@@ -19,13 +19,12 @@ import com.ruoyi.project.asset.service.ITbAssetService;
 import com.ruoyi.framework.web.controller.BaseController;
 import com.ruoyi.framework.web.domain.AjaxResult;
 import com.ruoyi.common.utils.poi.ExcelUtil;
-import com.ruoyi.framework.web.page.TableDataInfo;
 
 /**
  * 资产数据Controller
  * 
  * @author ruoyi
- * @date 2024-06-12
+ * @date 2024-06-13
  */
 @RestController
 @RequestMapping("/asset/asset")
@@ -39,11 +38,10 @@ public class TbAssetController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('asset:asset:list')")
     @GetMapping("/list")
-    public TableDataInfo list(TbAsset tbAsset)
+    public AjaxResult list(TbAsset tbAsset)
     {
-        startPage();
         List<TbAsset> list = tbAssetService.selectTbAssetList(tbAsset);
-        return getDataTable(list);
+        return success(list);
     }
 
     /**

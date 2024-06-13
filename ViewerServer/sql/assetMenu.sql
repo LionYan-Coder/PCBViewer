@@ -1,6 +1,6 @@
 -- 菜单 SQL
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time, update_by, update_time, remark)
-values('资产数据', '3', '1', 'asset', 'asset/asset/index', 1, 0, 'C', '0', '0', 'asset:asset:list', '#', 'admin', sysdate(), '', null, '资产数据菜单');
+values('资产数据', '0', '1', 'asset', 'asset/asset/index', 1, 0, 'C', '0', '0', 'asset:asset:list', '#', 'admin', sysdate(), '', null, '资产数据菜单');
 
 -- 按钮父菜单ID
 SELECT @parentId := LAST_INSERT_ID();

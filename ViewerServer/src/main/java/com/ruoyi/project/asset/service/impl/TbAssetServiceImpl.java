@@ -12,7 +12,7 @@ import com.ruoyi.project.asset.service.ITbAssetService;
  * 资产数据Service业务层处理
  * 
  * @author ruoyi
- * @date 2024-06-12
+ * @date 2024-06-13
  */
 @Service
 public class TbAssetServiceImpl implements ITbAssetService 
