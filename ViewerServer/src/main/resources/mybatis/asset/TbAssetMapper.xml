@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.asset.mapper.TbAssetMapper">
+    
+    <resultMap type="TbAsset" id="TbAssetResult">
+        <result property="assetId"    column="asset_id"    />
+        <result property="assetName"    column="asset_name"    />
+        <result property="assetType"    column="asset_type"    />
+        <result property="parentId"    column="parent_id"    />
+        <result property="visible"    column="visible"    />
+        <result property="sort"    column="sort"    />
+        <result property="vip"    column="vip"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectTbAssetVo">
+        select asset_id, asset_name, asset_type, parent_id, visible, sort, vip, create_by, create_time, update_by, update_time, remark from tb_asset
+    </sql>
+
+    <select id="selectTbAssetList" parameterType="TbAsset" resultMap="TbAssetResult">
+        <include refid="selectTbAssetVo"/>
+        <where>  
+            <if test="assetName != null  and assetName != ''"> and asset_name like concat('%', #{assetName}, '%')</if>
+            <if test="assetType != null  and assetType != ''"> and asset_type = #{assetType}</if>
+            <if test="parentId != null "> and parent_id = #{parentId}</if>
+            <if test="visible != null "> and visible = #{visible}</if>
+            <if test="sort != null "> and sort = #{sort}</if>
+            <if test="vip != null "> and vip = #{vip}</if>
+        </where>
+    </select>
+    
+    <select id="selectTbAssetByAssetId" parameterType="Long" resultMap="TbAssetResult">
+        <include refid="selectTbAssetVo"/>
+        where asset_id = #{assetId}
+    </select>
+
+    <insert id="insertTbAsset" parameterType="TbAsset" useGeneratedKeys="true" keyProperty="assetId">
+        insert into tb_asset
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="assetName != null and assetName != ''">asset_name,</if>
+            <if test="assetType != null">asset_type,</if>
+            <if test="parentId != null">parent_id,</if>
+            <if test="visible != null">visible,</if>
+            <if test="sort != null">sort,</if>
+            <if test="vip != null">vip,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="assetName != null and assetName != ''">#{assetName},</if>
+            <if test="assetType != null">#{assetType},</if>
+            <if test="parentId != null">#{parentId},</if>
+            <if test="visible != null">#{visible},</if>
+            <if test="sort != null">#{sort},</if>
+            <if test="vip != null">#{vip},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbAsset" parameterType="TbAsset">
+        update tb_asset
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="assetName != null and assetName != ''">asset_name = #{assetName},</if>
+            <if test="assetType != null">asset_type = #{assetType},</if>
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="visible != null">visible = #{visible},</if>
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="vip != null">vip = #{vip},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where asset_id = #{assetId}
+    </update>
+
+    <delete id="deleteTbAssetByAssetId" parameterType="Long">
+        delete from tb_asset where asset_id = #{assetId}
+    </delete>
+
+    <delete id="deleteTbAssetByAssetIds" parameterType="String">
+        delete from tb_asset where asset_id in 
+        <foreach item="assetId" collection="array" open="(" separator="," close=")">
+            #{assetId}
+        </foreach>
+    </delete>
+</mapper>
