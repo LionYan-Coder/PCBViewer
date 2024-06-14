@@ -6,6 +6,7 @@ import { useTab } from "~/hooks/useTab";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import { EmptyIcon } from "~/assets/icons";
+import zh_CN from "@react-pdf-viewer/locales/lib/zh_CN.json";
 
 const uploadUrl = process.env.NEXT_PUBLIC_UPLOAD_URL || "";
 
@@ -18,14 +19,12 @@ export function PDFView() {
   useEffect(() => {
     async function fetchAsset() {
       try {
-        console.log("fetchAsset");
         setLoading(true);
         const id = viewTab?.key as string;
         const result = await select<Asset[]>(
           "SELECT * FROM tb_asset WHERE asset_id = ?",
           [parseInt(id)]
         ).finally(() => setLoading(false));
-        console.log("result", result);
         if (result && result.length === 1) {
           setAsset(result[0]);
         }
@@ -43,8 +42,6 @@ export function PDFView() {
     }
   }, [viewTab]);
 
-  console.log("view");
-
   if (!asset || !asset.url) {
     return (
       <div className="mb-2 flex justify-center">
@@ -59,6 +56,7 @@ export function PDFView() {
         <Viewer
           fileUrl={uploadUrl + asset?.url}
           plugins={[defaultLayoutPluginInstance]}
+          localization={zh_CN}
         />
       )}
     </div>

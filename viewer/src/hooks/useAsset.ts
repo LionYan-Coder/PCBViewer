@@ -3,14 +3,10 @@ import {
   ReactNode,
   createContext,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from "react";
 import { handleRcTree, handleTree } from "~/lib/proxy";
-import { setStore } from "~/lib/store";
-import { EXPANDED_ASSETS, SELECTED_ASSETS } from "~/lib/store/constants";
-import { useApp } from "./useApp";
 
 interface TreeAsset extends Asset {
   key: Key;
@@ -27,7 +23,6 @@ export function useAssetContext() {
   const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<Key[]>([]);
   const [assets, setAssets] = useState<Asset[]>([]);
-  const { select } = useApp();
 
   const treeAssets = useMemo<TreeAsset[]>(() => {
     return handleTree(
@@ -36,28 +31,6 @@ export function useAssetContext() {
       "parent_id"
     );
   }, [assets]);
-
-  useEffect(() => {
-    async function fetchAssets() {
-      try {
-        const assets = await select<Asset[]>(
-          "SELECT * FROM tb_asset ORDER BY sort ASC"
-        );
-        setAssets(assets || []);
-      } catch (error) {
-        setAssets([]);
-      }
-    }
-    fetchAssets();
-  }, []);
-
-  useEffect(() => {
-    setStore(EXPANDED_ASSETS, expandedKeys);
-  }, [expandedKeys]);
-
-  useEffect(() => {
-    setStore(SELECTED_ASSETS, selectedKeys);
-  }, [selectedKeys]);
 
   return useMemo(
     () => ({

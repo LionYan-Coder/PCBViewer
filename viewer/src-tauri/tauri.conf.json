@@ -1,7 +1,7 @@
 {
   "productName": "viewer",
   "version": "0.1.0",
-  "identifier": "com.tauri.dev",
+  "identifier": "com.tauri.pcbviewer",
   "build": {
     "frontendDist": "../out",
     "devUrl": "http://localhost:3000",

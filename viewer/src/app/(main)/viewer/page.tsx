@@ -2,12 +2,14 @@
 import { useTab } from "~/hooks/useTab";
 import { PDFView } from "./PDFView";
 import { PCBView } from "./PCBView";
+import { Worker } from "@react-pdf-viewer/core";
 
 export default function Viewer() {
   const { viewTab } = useTab();
 
-  if (viewTab?.type === "PDF") {
-    return <PDFView />;
-  }
-  return <PCBView />;
+  return (
+    <Worker workerUrl="/pdf.worker.min.mjs">
+      {viewTab?.type === "PDF" ? <PDFView /> : <PCBView />}
+    </Worker>
+  );
 }

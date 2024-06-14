@@ -1,6 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { setStore } from "~/lib/store";
-import { HISTORY_TABS, VIEW_TAB } from "~/lib/store/constants";
+import { createContext, useContext, useMemo, useState } from "react";
 export const HomeTab: Tab = {
   label: "主页",
   key: "/",
@@ -14,14 +12,6 @@ export function useTabContext() {
     setHistoryTabs([HomeTab]);
     setViewTab({ ...HomeTab });
   }
-
-  useEffect(() => {
-    setStore(HISTORY_TABS, historyTabs);
-  }, [historyTabs]);
-
-  useEffect(() => {
-    setStore(VIEW_TAB, viewTab);
-  }, [viewTab]);
 
   return useMemo(
     () => ({

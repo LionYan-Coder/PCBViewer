@@ -1,3 +1,4 @@
+"use client";
 import { ReactNode, useState } from "react";
 import { Resizable } from "~/components/ui";
 import { setStore } from "~/lib/store";
