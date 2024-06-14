@@ -1,12 +1,14 @@
-import { Key, ReactNode, useCallback } from 'react'
+import { Key, ReactNode, useCallback, useState } from 'react'
 import Tree, { TreeNode } from 'rc-tree'
 import { DataNode, EventDataNode } from 'rc-tree/lib/interface'
 import '~/assets/tree.css'
-import { ChevronRightIcon, FolderIcon, FolderOpenIcon } from '~/assets/icons'
+import { ChevronRightIcon, FolderIcon, FolderOpenIcon, SearchIcon } from '~/assets/icons'
 import PDFImg from '~/assets/pdf.png'
 import PCBImg from '~/assets/pcb.png'
 import { cn } from '~/lib/utils'
 import { useAssetContext } from '~/hooks/useAsset'
+import { useTabContext } from '~/hooks/useTab'
+import { Button, Input } from './ui'
 
 interface TreeAsset extends Asset {
   key: Key
@@ -27,50 +29,31 @@ const motion = {
   onLeaveActive: () => ({ height: 0 }),
 }
 
-export function AssetNavigation() {
+export function Navigation() {
   const { expandedKeys, selectedKeys, setSelectedKeys, setExpandedKeys, treeAssets } =
     useAssetContext()
 
-  const handleClickNode = useCallback(
-    (asset: TreeAsset, keys: Key[]) => {
-      if (asset && asset.asset_type !== 'DIR') {
-        setSelectedKeys([asset.asset_id])
-      } else {
-        const index = keys.findIndex((key) => key === asset.asset_id)
-        if (index !== -1) {
-          const newExpandedKeys = [...keys]
-          newExpandedKeys.splice(index, 1)
-          setExpandedKeys(newExpandedKeys)
-        } else {
-          setExpandedKeys([...keys, asset.asset_id])
-        }
-      }
-    },
-    [setExpandedKeys, setSelectedKeys],
-  )
+  const { setHistoryTabs, setViewTab, historyTabs } = useTabContext()
 
-  const generateTreeNode = useCallback(
-    (treeData?: TreeAsset[]) => {
-      return treeData?.map((asset) => (
-        <TreeNode
-          key={asset.key}
-          title={
-            <span>
-              <span
-                className='absolute w-full h-full cursor-pointer left-0'
-                onClick={() => handleClickNode(asset, expandedKeys)}
-              ></span>
-              {asset.title}
-            </span>
-          }
-          data={asset}
-        >
-          {generateTreeNode(asset.children)}
-        </TreeNode>
-      ))
-    },
-    [expandedKeys, handleClickNode],
-  )
+  function generateTreeNode(treeData?: TreeAsset[]) {
+    return treeData?.map((asset) => (
+      <TreeNode
+        key={asset.key}
+        title={
+          <span>
+            <span
+              className='absolute w-full h-full cursor-pointer left-0'
+              // onClick={() => handleClickNode(asset, expandedKeys)}
+            ></span>
+            {asset.title}
+          </span>
+        }
+        data={asset}
+      >
+        {generateTreeNode(asset.children)}
+      </TreeNode>
+    ))
+  }
 
   function handleSelect(
     keys: Key[],
@@ -82,28 +65,42 @@ export function AssetNavigation() {
       nativeEvent: MouseEvent
     },
   ) {
+    console.log('select', info)
+
     const data = (info.node as any).data as TreeAsset
-    if (data && data.asset_type !== 'DIR') {
-      setSelectedKeys(keys)
-    } else {
-      setSelectedKeys([])
+    if (data.asset_type !== 'DIR') {
+      setSelectedKeys([data.key.toString()])
+      if (historyTabs.findIndex((tab) => tab.key === data.key) === -1) {
+        setHistoryTabs((prevTabs) => [...prevTabs, { key: data.key, label: data.asset_name }])
+      }
+
+      setViewTab({ key: data.key, label: data.asset_name })
+    } else if (data.children) {
+      const index = expandedKeys.findIndex((key) => key == data.key)
+      if (index !== -1) {
+        const newExpandedKeys = [...expandedKeys]
+        newExpandedKeys.splice(index, 1)
+        setExpandedKeys(newExpandedKeys)
+      } else {
+        setExpandedKeys([...expandedKeys, data.key.toString()])
+      }
     }
   }
 
-  function handleExpand(keys: Key[]) {
-    setExpandedKeys(keys)
-  }
+  // function handleExpand(keys: Key[]) {
+  //   setExpandedKeys(keys)
+  // }
 
   return (
     <div>
+      <Search />
       <Tree
         selectable
-        expandAction='click'
-        className='select-none text-sm text-zinc-950'
+        className='select-none text-sm text-zinc-950 p-2'
         expandedKeys={expandedKeys}
         selectedKeys={selectedKeys}
+        // onExpand={handleExpand}
         onSelect={handleSelect}
-        onExpand={handleExpand}
         motion={motion}
         switcherIcon={(row) => {
           if (!row.isLeaf) {
@@ -137,6 +134,22 @@ export function AssetNavigation() {
       >
         {generateTreeNode(treeAssets)}
       </Tree>
+    </div>
+  )
+}
+
+function Search() {
+  return (
+    <div className='relative border-b border-zinc-200'>
+      <div className='w-full h-11 flex justify-center items-center px-4 space-x-3'>
+        <Button className='h-8' variant='outline'>
+          复位
+        </Button>
+        <Input className='flex-1' type='text' />
+        <Button className='h-8 w-8' size='icon'>
+          <SearchIcon />
+        </Button>
+      </div>
     </div>
   )
 }

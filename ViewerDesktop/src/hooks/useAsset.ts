@@ -1,6 +1,8 @@
 import { Key, ReactNode, createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { db } from '~/lib/db'
 import { handleRcTree, handleTree } from '~/lib/proxy'
+import { setStore } from '~/lib/store'
+import { EXPANDED_ASSETS, SELECTED_ASSETS } from '~/lib/store/constants'
 
 interface TreeAsset extends Asset {
   key: Key
@@ -33,6 +35,14 @@ export function useAsset() {
     }
     fetchAssets()
   }, [])
+
+  useEffect(() => {
+    setStore(EXPANDED_ASSETS, expandedKeys)
+  }, [expandedKeys])
+
+  useEffect(() => {
+    setStore(SELECTED_ASSETS, selectedKeys)
+  }, [selectedKeys])
 
   return useMemo(
     () => ({

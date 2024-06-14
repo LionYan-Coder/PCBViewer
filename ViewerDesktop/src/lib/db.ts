@@ -6,13 +6,10 @@ const { mysql_url, mysql_database, mysql_password, mysql_port, mysql_user } = aw
 
 // eslint-disable-next-line camelcase
 const url = `mysql://${mysql_user}:${mysql_password}@${mysql_url}:${mysql_port}/${mysql_database}`
-console.log('url', url)
 export const db = await Database.load(
   // eslint-disable-next-line camelcase
   `mysql://${mysql_user}:${mysql_password}@${mysql_url}:${mysql_port}/${mysql_database}`,
 )
-
-console.log('db', db)
 
 export function closeDB() {
   db.close()
