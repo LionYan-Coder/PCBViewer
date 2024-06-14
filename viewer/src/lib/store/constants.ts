@@ -1,0 +1,6 @@
+export const RESIZABLE_COLLAPSED = 'resizable-panels:collapsed'
+export const RESIZABLE_LAYOUT = 'resizable-panels:layout'
+export const EXPANDED_ASSETS = 'tree-asset:expanded'
+export const SELECTED_ASSETS = 'tree-asset:selected'
+export const HISTORY_TABS = 'navbar:history_tabs'
+export const VIEW_TAB = 'navbar:view_tab'
