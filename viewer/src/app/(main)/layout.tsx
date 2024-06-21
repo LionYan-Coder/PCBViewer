@@ -35,7 +35,7 @@ export default function Layout({
         <ResizableLayout
           defaultLayout={layout}
           defaultCollapsed={collapsed}
-          navCollapsedSize={4}
+          navCollapsedSize={10}
         >
           {children}
         </ResizableLayout>

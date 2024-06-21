@@ -32,8 +32,8 @@ export function ResizableLayout({
     >
       <Resizable.Panel
         defaultSize={defaultLayout[0]}
-        collapsedSize={navCollapsedSize}
-        collapsible={true}
+        // collapsedSize={navCollapsedSize}
+        // collapsible={true}
         minSize={0}
         maxSize={70}
         onExpand={() => {
@@ -54,7 +54,7 @@ export function ResizableLayout({
       <Resizable.Handle className="hidden sm:flex h-screen" withHandle />
       <Resizable.Panel
         defaultSize={defaultLayout[1]}
-        minSize={30}
+        minSize={20}
         className="transition-all duration-300 ease-in-out h-screen !overflow-auto"
         id="content"
       >
