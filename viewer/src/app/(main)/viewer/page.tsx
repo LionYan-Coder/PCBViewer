@@ -8,7 +8,7 @@ export default function Viewer() {
   const { viewTab } = useTab();
 
   return (
-    <Worker workerUrl="/pdf.worker.min.mjs">
+    <Worker workerUrl="/pdf.worker.min.js">
       {viewTab?.type === "PDF" ? <PDFView /> : <PCBView />}
     </Worker>
   );

@@ -62,7 +62,7 @@ const nextConfig = {
       new CopyWebpackPlugin({
           patterns: [
               {
-                  from: path.join(rootDir, 'node_modules/pdfjs-dist/build/pdf.worker.min.mjs'),
+                  from: path.join(rootDir, 'node_modules/pdfjs-dist/build/pdf.worker.min.js'),
                   to: path.join(__dirname, 'public'),
               },
           ],

@@ -51,7 +51,7 @@ export function PDFView() {
     );
   }
   return (
-    <div>
+    <div className="h-[calc(100vh-2.75rem)]">
       {asset && asset.url && (
         <Viewer
           fileUrl={uploadUrl + asset?.url}
