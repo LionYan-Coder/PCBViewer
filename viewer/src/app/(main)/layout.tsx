@@ -2,12 +2,7 @@
 
 import { ReactNode, useEffect, useState } from "react";
 import { getStore } from "~/lib/store";
-import {
-  HISTORY_TABS,
-  RESIZABLE_COLLAPSED,
-  RESIZABLE_LAYOUT,
-  VIEW_TAB,
-} from "~/lib/store/constants";
+import { RESIZABLE_COLLAPSED, RESIZABLE_LAYOUT } from "~/lib/store/constants";
 import { ResizableLayout } from "./ResizableLayout";
 import { AssetProvider } from "~/providers/AssetProvider";
 import { TabviewProvider } from "~/providers/TabViewProvider";
@@ -29,6 +24,7 @@ export default function Layout({
     }
     fetchInitStore();
   }, []);
+
   return (
     <AssetProvider>
       <TabviewProvider>

@@ -90,6 +90,7 @@ dependencies = [
  "serde_json",
  "tauri",
  "tauri-build",
+ "tauri-plugin-fs",
  "tauri-plugin-global-shortcut",
  "tauri-plugin-persisted-scope",
  "tauri-plugin-sql",

@@ -15,17 +15,17 @@ if (!isProd) {
 
 
 const nextConfig = {
-  // reactStrictMode: false,
+  reactStrictMode: false,
   images: {
     unoptimized: true,
   },
   output: "export",
-  assetPrefix: isProd ? null : `http://${internalHost}:3000`,
+
+  assetPrefix: isProd ? null : `http://${internalHost}:5100`,
   webpack: (config,{ webpack }) => {
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
     const rootDir = path.join(__dirname);
-    console.log("rootDir",rootDir);
     // config.resolve.alias['react'] = path.join(rootDir, 'node_modules/react');
     // const tsLoader = {
     //   test: /\.ts(x?)$/,

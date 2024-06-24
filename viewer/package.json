@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "next-start": "next dev",
+    "next-start": "next dev -p 5100",
     "next-build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -19,6 +19,7 @@
     "@react-pdf-viewer/default-layout": "^3.12.0",
     "@react-pdf-viewer/locales": "^1.0.0",
     "@tauri-apps/api": ">=2.0.0-beta.0",
+    "@tauri-apps/plugin-fs": "2.0.0-beta.5",
     "@tauri-apps/plugin-global-shortcut": "2.0.0-beta.5",
     "@tauri-apps/plugin-sql": "2.0.0-beta.5",
     "@tauri-apps/plugin-store": "2.0.0-beta.5",

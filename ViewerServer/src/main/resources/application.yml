@@ -7,7 +7,7 @@ ruoyi:
   # 版权年份
   copyrightYear: 2024
   # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
-  profile: ${MY_UPLOAD_PATH}
+  profile: ${SPRING_UPLOAD_PATH}
   # 获取ip地址开关
   addressEnabled: false
   # 验证码类型 math 数字计算 char 字符验证
@@ -93,7 +93,7 @@ token:
   # 令牌自定义标识
   header: Authorization
   # 令牌密钥
-  secret: ${MY_TOKEN_SECRET}
+  secret: ${SPRING_TOKEN_SECRET}
   # 令牌有效期（默认30分钟）
   expireTime: 30
   
@@ -131,7 +131,7 @@ xss:
 # 代码生成
 gen:
   # 作者
-  author: ruoyi
+  author: lion
   # 默认生成包路径 system 需改成自己的模块名称 如 system monitor tool
   packageName: com.ruoyi.project.system
   # 自动去除表前缀，默认是true

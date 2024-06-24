@@ -1,10 +1,10 @@
 {
   "productName": "viewer",
   "version": "0.1.0",
-  "identifier": "com.tauri.dev",
+  "identifier": "com.lion.pcbviewer",
   "build": {
     "frontendDist": "../out",
-    "devUrl": "http://localhost:3000",
+    "devUrl": "http://localhost:5100",
     "beforeDevCommand": "pnpm next-start",
     "beforeBuildCommand": "pnpm next-build"
   },
