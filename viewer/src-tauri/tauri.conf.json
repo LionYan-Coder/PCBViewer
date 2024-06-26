@@ -14,8 +14,7 @@
         "title": "viewer",
         "width": 1200,
         "height": 800,
-        "resizable": true,
-        "fullscreen": true
+        "resizable": true
       }
     ],
     "security": {

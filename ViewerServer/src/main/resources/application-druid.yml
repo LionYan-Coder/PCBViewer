@@ -7,7 +7,7 @@ spring:
             # 主库数据源
             master:
                 url: ${SPRING_DATASOURCE_URL}
-                username: ${SPRING_DATASOURCE_USERNAME}}
+                username: ${SPRING_DATASOURCE_USERNAME}
                 password: ${SPRING_DATASOURCE_PASSWORD}
             # 从库数据源
             slave:
