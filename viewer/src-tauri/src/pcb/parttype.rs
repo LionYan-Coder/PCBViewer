@@ -2,19 +2,19 @@ struct PartType {
     // /**
     //  * 数据块在EDA文件中描述的是PCB设计中元器件的类型及其引脚信息。
     //  */
-    name: String,    //**：元件名称
-    decalnm: String, //元件封装名称 对应 `*PARTDECAL*` 中的封装信息
-    r#type: Type,    //元件类型
-    gates: u8, //元件中逻辑门的数量
-    sigpins: u8, //信号引脚数
+    name: String,     //**：元件名称
+    decalnm: String,  //元件封装名称 对应 `*PARTDECAL*` 中的封装信息
+    r#type: Type,     //元件类型
+    gates: u8,        //元件中逻辑门的数量
+    sigpins: u8,      //信号引脚数
     unusedpinnms: u8, //未使用的引脚名称
-    flags: u8, //标志位，用于表示元件的特殊属性
-    eco: String, //程变更令
+    flags: u8,        //标志位，用于表示元件的特殊属性
+    eco: String,      //程变更令
     gs: GS,
     swaptype: i8,
     pins: u8, //引脚数
     pinnumbers: Vec<String>, // 所有引脚
-    //1.0.L. 2.0.L. 3.0.L. 4.0.L. 5.0.L. 6.0.L.
+              //1.0.L. 2.0.L. 3.0.L. 4.0.L. 5.0.L. 6.0.L.
 }
 
 enum Type {

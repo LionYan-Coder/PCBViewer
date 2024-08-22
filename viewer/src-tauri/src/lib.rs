@@ -1,47 +1,30 @@
+mod api;
+mod app_error;
+mod config;
 mod pcb;
 
-use dotenv::dotenv;
-use serde::{Deserialize, Serialize};
-use std::env;
-
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-
-#[derive(Clone, Serialize, Deserialize)]
-struct AppEnv {
-    mysql_url: String,
-    mysql_port: String,
-    mysql_database: String,
-    mysql_user: String,
-    mysql_password: String,
-}
-
-#[tauri::command]
-fn get_app_env() -> AppEnv {
-    dotenv().ok();
-    let mysql_url = env::var("MYSQL_URL").unwrap_or_else(|_| "locahost".to_string());
-    let mysql_port = env::var("MYSQL_PORT").unwrap_or_else(|_| "3306".to_string());
-    let mysql_database = env::var("MYSQL_DATABASE").unwrap_or_else(|_| "PCBViewer".to_string());
-    let mysql_user = env::var("MYSQL_USER").unwrap_or_else(|_| "root".to_string());
-    let mysql_password = env::var("MYSQL_PASSWORD").expect("missing MYSQL_PASSWORD envrioment");
-
-    AppEnv {
-        mysql_url,
-        mysql_port,
-        mysql_database,
-        mysql_user,
-        mysql_password,
-    }
-}
+use config::{app_env_static, AppEnv};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    let devtools = tauri_plugin_devtools::init();
     tauri::Builder::default()
+        .setup(|_| {
+            let mut app_env = app_env_static.lock().unwrap();
+            *app_env = AppEnv::new();
+            Ok(())
+        })
+        .plugin(tauri_plugin_http::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
         .plugin(tauri_plugin_sql::Builder::default().build())
         .plugin(tauri_plugin_persisted_scope::init())
         .plugin(tauri_plugin_store::Builder::new().build())
-        .invoke_handler(tauri::generate_handler![get_app_env])
+        .plugin(devtools)
+        .invoke_handler(tauri::generate_handler![
+            api::get_app_env,
+            api::get_asc_by_file_path
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

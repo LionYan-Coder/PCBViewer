@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { LoadingPage } from "~/components/ui";
+import { LoadingWrapper } from "~/components/ui";
 import { AppContext, useAppContext } from "~/hooks/useApp";
 import Error from "~/app/error";
 
@@ -26,7 +26,7 @@ export function AppProvider({
 
   if (connecting) {
     return (
-      <LoadingPage
+      <LoadingWrapper
         className="w-screen h-screen"
         loaderClassName="w-10"
         loader="infinity"

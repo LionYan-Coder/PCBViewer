@@ -60,7 +60,9 @@ export function ResizableLayout({
       >
         <div className="w-full flex flex-col  pt-11">
           <Navbar />
-          <main className="overflow-auto">{children}</main>
+          <main className="overflow-auto w-full h-[calc(100vh-2.75rem)]">
+            {children}
+          </main>
         </div>
       </Resizable.Panel>
     </Resizable.PanelGroup>

@@ -23,7 +23,7 @@ interface LoadingPageProps {
   loaderClassName?: string;
 }
 
-export function LoadingPage({
+export function LoadingWrapper({
   className,
   loaderClassName,
   loader = "spinner",
@@ -49,9 +49,8 @@ export function LoadingPage({
             <Loading className={loaderClassName} loader={loader} />
           </motion.div>
         )}
-
-        {children}
       </AnimatePresence>
+      {children}
     </div>
   );
 }

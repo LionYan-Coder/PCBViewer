@@ -205,7 +205,7 @@
           />
         </el-form-item>
         <el-form-item label="资产文件" prop="url">
-          <file-upload v-model="form.url" />
+          <file-upload v-model="form.url" :fileType="['pdf', 'asc']" />
         </el-form-item>
         <el-form-item label="资产状态" prop="visible">
           <el-select v-model="form.visible" placeholder="请选择资产状态">
